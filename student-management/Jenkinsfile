@@ -2,43 +2,37 @@ pipeline {
     agent any
 
     environment {
-        REPO_URL = 'https://github.com/Yasmine-esprit/Jenkins.git' 
-        BRANCH = 'main' 
+        REPO_URL = 'https://github.com/Yasmine-esprit/Jenkins.git'
+        BRANCH = 'main'
     }
 
     stages {
         stage('Clone Repository') {
             steps {
                 echo "Cloning repo ${REPO_URL} branch ${BRANCH}"
-                sh "git clone -b ${BRANCH} ${REPO_URL} repo"
+                sh "git clone -b ${BRANCH} ${REPO_URL} ."
             }
         }
 
         stage('Build') {
             steps {
                 echo 'Building Spring Boot project...'
-                 {
-                    sh 'mvn clean compile'
-                }
+                sh 'mvn clean compile'
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Running tests...'
-             {
-                    sh 'mvn test'
-                }
+                sh 'mvn test'
             }
         }
 
         stage('Show Results') {
             steps {
-                 {
-                    echo 'Listing compiled classes and test reports:'
-                    sh 'ls -l target/classes'        
-                    sh 'ls -l target/surefire-reports' 
-                }
+                echo 'Listing compiled classes and test reports:'
+                sh 'ls -l target/classes'
+                sh 'ls -l target/surefire-reports'
             }
         }
     }
@@ -46,7 +40,7 @@ pipeline {
     post {
         always {
             echo 'Cleaning workspace...'
-            deleteDir() 
+            deleteDir()
         }
         success {
             echo 'Pipeline succeeded!'
