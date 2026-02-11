@@ -17,7 +17,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building Spring Boot project...'
-                dir('repo') {
+                dir('student-management') {
                     sh 'mvn clean compile'
                 }
             }
