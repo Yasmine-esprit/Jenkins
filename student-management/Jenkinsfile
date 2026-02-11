@@ -5,6 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building Spring Boot project...'
+                dir('Student-Management')
                 sh 'mvn clean compile'
             }
         }
@@ -12,6 +13,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running tests...'
+                dir('Student-Management')
                 sh 'mvn test'
             }
         }
@@ -19,6 +21,7 @@ pipeline {
         stage('Show Results') {
             steps {
                 echo 'Listing compiled classes and test reports:'
+                dir('Student-Management')
                 sh 'ls -l target/classes'
                 sh 'ls -l target/surefire-reports'
             }
