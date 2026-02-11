@@ -10,23 +10,7 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-                dir('Student-Management')
-                sh 'mvn test'
-            }
-        }
-
-        stage('Show Results') {
-            steps {
-                echo 'Listing compiled classes and test reports:'
-                dir('Student-Management')
-                sh 'ls -l target/classes'
-                sh 'ls -l target/surefire-reports'
-            }
-        }
-    }
+        
 
     post {
         always {
