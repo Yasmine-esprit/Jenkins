@@ -1,31 +1,26 @@
 pipeline {
-
     agent any
- 
-    stages {
 
-        stage('Checkout') {
-
-            steps {
-
-                checkout scm
-
-            }
-
-        }
- 
-        stage('Build') {
-
-            steps {
-                echo 'Compiling Java project...'
-
-                sh './mvnw clean compile'
-
-            }
-
-        }
-
+    environment {
+        REPO_URL = 'https://github.com/Yasmine-esprit/Jenkins.git'
+        BRANCH = 'main'
     }
 
+    stages {
+        stage('Clone Repository') {
+            steps {
+                echo "Cloning repo ${REPO_URL} branch ${BRANCH}"
+                sh "git clone -b ${BRANCH} ${REPO_URL} repo"
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building Spring Boot project...'
+                dir('repo') {
+                    sh 'mvn clean compile'
+                }
+            }
+        }
+    }
 }
- 
