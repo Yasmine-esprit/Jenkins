@@ -1,27 +1,32 @@
 pipeline {
+
     agent any
-
+ 
     stages {
-        stage('Build') {
+
+        stage('Checkout') {
+
             steps {
-                echo 'Building Spring Boot project...'
-                dir('Student-Management')
-                sh 'mvn clean compile'
+
+                checkout scm
+
             }
+
+        }
+ 
+        stage('Build') {
+
+            steps {
+
+                echo 'Compiling Java project...'
+
+                sh './mvnw clean compile'
+
+            }
+
         }
 
-        
-
-    post {
-        always {
-            echo 'Cleaning workspace...'
-            deleteDir()
-        }
-        success {
-            echo 'Pipeline succeeded!'
-        }
-        failure {
-            echo 'Pipeline failed!'
-        }
     }
+
 }
+ 
