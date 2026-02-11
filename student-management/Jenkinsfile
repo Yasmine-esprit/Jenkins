@@ -17,7 +17,7 @@ pipeline {
         stage('Build') {
 
             steps {
-
+                dir('Student-Management')
                 echo 'Compiling Java project...'
 
                 sh './mvnw clean compile'
